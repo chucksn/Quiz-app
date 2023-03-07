@@ -28,6 +28,8 @@ function SelectCategoryStart() {
   const quizHasStarted = useSelector((state) => state.quizHasStarted);
   const category = useSelector((state) => state.category);
   const difficulty = useSelector((state) => state.difficulty);
+  const [noCategorySelected, setNoCategorySelected] = useState(true);
+  const [noDifficultySelected, setNoDifficultySelected] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -41,6 +43,13 @@ function SelectCategoryStart() {
 
   const handleStartClick = () => {
     category && difficulty && dispatch(setQuizStart());
+    if (!category) setNoCategorySelected(false);
+    if (!difficulty) setNoDifficultySelected(false);
+  };
+
+  const handleMenuOpen = () => {
+    setNoCategorySelected(true);
+    setNoDifficultySelected(true);
   };
 
   return (
@@ -48,25 +57,39 @@ function SelectCategoryStart() {
       {!quizHasStarted && (
         <div className=" w-4/5 md:w-3/5 lg:w-1/2 bg-gray-300 p-4 rounded-lg flex flex-col justify-between ">
           <div className="border-b-2 border-zinc-400/20 m-4 pb-2">
-            <span className="quiz-title block font-ubuntu font-medium text-zinc-900/60 text-center text-xl md:text-2xl lg:text-3xl ">
+            <span className="quiz-title block font-ubuntu font-medium text-zinc-800/70 text-center text-xl md:text-2xl lg:text-3xl ">
               BRAINER QUIZ
             </span>
           </div>
           <div className="flex flex-col justify-between items-center">
-            <Select
-              className="category-select w-4/5 lg:w-1/2 md:text-xl m-8"
-              defaultValue={selectedCategory}
-              onChange={setSelectedCategory}
-              options={category_options}
-              placeholder="Select Category"
-            />
-            <Select
-              className="difficulty-select w-4/5 lg:w-1/2 md:text-xl m-8"
-              defaultValue={selectedDifficulty}
-              onChange={setSelectedDifficulty}
-              options={difficulty_options}
-              placeholder="Select Difficulty"
-            />
+            <div
+              className={` select-category-container w-4/5 lg:w-1/2 m-8 rounded-sm ${
+                noCategorySelected ? "" : "shadow-s2-red"
+              }`}
+            >
+              <Select
+                className="category-select  md:text-xl "
+                defaultValue={selectedCategory}
+                onChange={setSelectedCategory}
+                options={category_options}
+                placeholder="Select Category"
+                onMenuOpen={handleMenuOpen}
+              />
+            </div>
+            <div
+              className={` select-difficulty-container w-4/5 lg:w-1/2 m-8 rounded-sm ${
+                noDifficultySelected ? "" : "shadow-s2-red"
+              }`}
+            >
+              <Select
+                className="difficulty-select md:text-xl"
+                defaultValue={selectedDifficulty}
+                onChange={setSelectedDifficulty}
+                options={difficulty_options}
+                placeholder="Select Difficulty"
+                onMenuOpen={handleMenuOpen}
+              />
+            </div>
             <button
               className="p-2 bg-sky-600 text-white rounded-lg lg:hover:bg-sky-500 m-2"
               onClick={handleStartClick}
