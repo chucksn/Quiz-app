@@ -1,8 +1,11 @@
 import { useSelector } from "react-redux";
 import Timer from "./timer";
+import { useState } from "react";
 
 function QuizMain() {
   const quizMainHasStarted = useSelector((state) => state.quizMainHasStarted);
+  const [answerClicked, setAnswerClicked] = useState(false);
+
   return (
     <>
       {quizMainHasStarted && (
@@ -15,7 +18,7 @@ function QuizMain() {
               <span className="block mr-2 text-yellow-700 text-sm md:text-base lg:text-lg font-robotoMono font-medium">
                 Time Left
               </span>
-              <Timer />
+              <Timer isPlaying={answerClicked ? false : true} />
             </div>
           </div>
         </div>

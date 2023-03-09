@@ -10,11 +10,12 @@ const renderTime = ({ remainingTime }) => {
   );
 };
 
-function Timer() {
+function Timer({ isPlaying, onComplete }) {
   return (
     <>
       <CountdownCircleTimer
-        isPlaying
+        isPlaying={isPlaying}
+        onComplete={onComplete}
         duration={15}
         size={50}
         strokeWidth={4}
