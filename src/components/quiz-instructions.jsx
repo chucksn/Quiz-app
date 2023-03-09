@@ -39,13 +39,13 @@ function QuizInstructions() {
           </div>
           <div className="btn-container mt-2 flex justify-center">
             <button
-              className="exit p-2 bg-sky-600 text-white rounded-lg lg:hover:bg-sky-500 m-2"
+              className="exit p-2 bg-sky-700 text-white rounded-lg lg:hover:bg-sky-600 m-2"
               onClick={handleExit}
             >
               Exit Quiz
             </button>
             <button
-              className="continue p-2 bg-sky-600 text-white rounded-lg lg:hover:bg-sky-500 m-2"
+              className="continue p-2 bg-sky-700 text-white rounded-lg lg:hover:bg-sky-600 m-2"
               onClick={handleContinue}
             >
               Continue

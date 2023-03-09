@@ -95,7 +95,7 @@ function SelectCategoryStart() {
               />
             </div>
             <button
-              className="p-2 bg-sky-600 text-white rounded-lg lg:hover:bg-sky-500 m-2"
+              className="p-2 bg-sky-700 text-white rounded-lg lg:hover:bg-sky-600 m-2"
               onClick={handleStartClick}
             >
               START QUIZ
