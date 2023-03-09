@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
+import { setFirstPopup_hidden } from "../redux/slices/firstPopup-slice";
 import { setCategory } from "../redux/slices/category-slice";
-import { setQuizStart } from "../redux/slices/startQuiz-slice";
+import { setQuizStarted } from "../redux/slices/startQuiz-slice";
 import { setDifficulty } from "../redux/slices/difficulty-slice";
 
 const category_options = [
@@ -25,7 +26,7 @@ const difficulty_options = [
 function SelectCategoryStart() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedDifficulty, setSelectedDifficulty] = useState(null);
-  const quizHasStarted = useSelector((state) => state.quizHasStarted);
+  const firstPopup = useSelector((state) => state.firstPopup);
   const category = useSelector((state) => state.category);
   const difficulty = useSelector((state) => state.difficulty);
   const [noCategorySelected, setNoCategorySelected] = useState(true);
@@ -42,7 +43,10 @@ function SelectCategoryStart() {
   }, [selectedDifficulty]);
 
   const handleStartClick = () => {
-    category && difficulty && dispatch(setQuizStart());
+    category &&
+      difficulty &&
+      dispatch(setQuizStarted()) &&
+      dispatch(setFirstPopup_hidden());
     if (!category) setNoCategorySelected(false);
     if (!difficulty) setNoDifficultySelected(false);
   };
@@ -54,8 +58,8 @@ function SelectCategoryStart() {
 
   return (
     <>
-      {!quizHasStarted && (
-        <div className=" w-4/5 md:w-3/5 lg:w-1/2 bg-gray-300 p-4 rounded-lg flex flex-col justify-between ">
+      {firstPopup && (
+        <div className="quiz-select-category w-4/5 md:w-3/5 lg:w-1/2 bg-gray-300 p-4 rounded-lg flex flex-col justify-between ">
           <div className="border-b-2 border-zinc-400/20 m-4 pb-2">
             <span className="quiz-title block font-ubuntu font-medium text-zinc-800/70 text-center text-xl md:text-2xl lg:text-3xl ">
               BRAINER QUIZ

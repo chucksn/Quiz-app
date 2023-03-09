@@ -1,12 +1,20 @@
 import { useSelector, useDispatch } from "react-redux";
-import { resetQuizStart } from "../redux/slices/startQuiz-slice";
+import { resetQuizStarted } from "../redux/slices/startQuiz-slice";
+import { resetFirstPopup } from "../redux/slices/firstPopup-slice";
+import { setQuizMainStarted } from "../redux/slices/startQuizMain-slice";
 
 function QuizInstructions() {
   const dispatch = useDispatch();
   const quizHasStarted = useSelector((state) => state.quizHasStarted);
 
   const handleExit = () => {
-    dispatch(resetQuizStart());
+    dispatch(resetQuizStarted());
+    dispatch(resetFirstPopup());
+  };
+
+  const handleContinue = () => {
+    dispatch(resetQuizStarted());
+    dispatch(setQuizMainStarted());
   };
   return (
     <>
@@ -36,7 +44,10 @@ function QuizInstructions() {
             >
               Exit Quiz
             </button>
-            <button className="continue p-2 bg-sky-600 text-white rounded-lg lg:hover:bg-sky-500 m-2">
+            <button
+              className="continue p-2 bg-sky-600 text-white rounded-lg lg:hover:bg-sky-500 m-2"
+              onClick={handleContinue}
+            >
               Continue
             </button>
           </div>

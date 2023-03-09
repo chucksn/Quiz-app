@@ -6,14 +6,14 @@ const startQuiz_slice = createSlice({
   name: "startQuiz",
   initialState,
   reducers: {
-    setQuizStart: (state) => {
+    setQuizStarted: (state) => {
       return (state = true);
     },
-    resetQuizStart: (state) => {
+    resetQuizStarted: (state) => {
       return (state = initialState);
     },
   },
 });
 
-export const { setQuizStart, resetQuizStart } = startQuiz_slice.actions;
+export const { setQuizStarted, resetQuizStarted } = startQuiz_slice.actions;
 export default startQuiz_slice.reducer;
