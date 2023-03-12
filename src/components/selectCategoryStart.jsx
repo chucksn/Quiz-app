@@ -59,10 +59,10 @@ function SelectCategoryStart() {
   return (
     <>
       {firstPopup && (
-        <div className="quiz-select-category w-4/5 md:w-3/5 lg:w-1/2 bg-gray-300 p-4 rounded-lg flex flex-col justify-between ">
+        <div className="quiz-select-category w-10/12 md:w-3/5 lg:w-1/2 bg-gray-300 p-2 sm:p-4 rounded-lg flex flex-col justify-between ">
           <div className="border-b-2 border-zinc-400/20 m-4 pb-2">
-            <span className="quiz-title block font-ubuntu font-medium text-zinc-800/70 text-center text-xl md:text-2xl lg:text-3xl ">
-              BRAINER QUIZ
+            <span className="quiz-title block font-ubuntu font-medium text-green-700 text-center text-xl md:text-2xl lg:text-3xl ">
+              QUIZ APP
             </span>
           </div>
           <div className="flex flex-col justify-between items-center">
@@ -95,7 +95,7 @@ function SelectCategoryStart() {
               />
             </div>
             <button
-              className="p-2 bg-sky-700 text-white rounded-lg lg:hover:bg-sky-600 m-2"
+              className="p-3 md:text-base bg-sky-700 text-white rounded-lg lg:hover:bg-sky-600 m-2 font-medium"
               onClick={handleStartClick}
             >
               START QUIZ

@@ -19,7 +19,7 @@ function QuizInstructions() {
   return (
     <>
       {quizHasStarted && (
-        <div className="quiz-rules w-4/5 md:w-3/5 lg:w-1/2 bg-gray-300 p-4 rounded-lg flex flex-col justify-between ">
+        <div className="quiz-rules w-10/12 md:w-3/5 lg:w-1/2 bg-gray-300 p-2 sm:p-4 rounded-lg flex flex-col justify-between ">
           <div className="border-b-2 border-zinc-400/20 m-4 pb-2">
             <span className="block font-itim text-center text-xl md:text-2xl lg:text-3xl text-zinc-900/70">
               Quiz Rules
@@ -39,13 +39,13 @@ function QuizInstructions() {
           </div>
           <div className="btn-container mt-2 flex justify-center">
             <button
-              className="exit p-2 bg-sky-700 text-white rounded-lg lg:hover:bg-sky-600 m-2"
+              className="exit p-3  bg-sky-700 text-white rounded-lg lg:hover:bg-sky-600 m-2 font-medium"
               onClick={handleExit}
             >
               Exit Quiz
             </button>
             <button
-              className="continue p-2 bg-sky-700 text-white rounded-lg lg:hover:bg-sky-600 m-2"
+              className="continue p-3  bg-sky-700 text-white rounded-lg lg:hover:bg-sky-600 m-2 font-medium"
               onClick={handleContinue}
             >
               Continue

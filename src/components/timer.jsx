@@ -3,20 +3,21 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 const renderTime = ({ remainingTime }) => {
   return (
     <div className="timer flex flex-col items-center justify-center">
-      <div className="value text-2xl text-green-600 font-ubuntu ">
+      <div className="value text-2xl text-green-600 font-ubuntu font-medium">
         {remainingTime}
       </div>
     </div>
   );
 };
 
-function Timer({ isPlaying, onComplete }) {
+function Timer({ isPlaying, onComplete, duration, onUpdate }) {
   return (
     <>
       <CountdownCircleTimer
         isPlaying={isPlaying}
         onComplete={onComplete}
-        duration={15}
+        duration={duration}
+        onUpdate={onUpdate}
         size={50}
         strokeWidth={4}
         colors={["#00ABF0", "#F7B801", "#A30000", "#A30000"]}
