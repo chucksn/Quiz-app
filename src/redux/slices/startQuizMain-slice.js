@@ -15,6 +15,6 @@ const startQuizMain_slice = createSlice({
   },
 });
 
-export const { setQuizMainStarted, resetMainQuizStarted } =
+export const { setQuizMainStarted, resetQuizMainStarted } =
   startQuizMain_slice.actions;
 export default startQuizMain_slice.reducer;

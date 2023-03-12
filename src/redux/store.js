@@ -4,6 +4,7 @@ import startQuizSliceReducer from "./slices/startQuiz-slice";
 import difficultySliceReducer from "./slices/difficulty-slice";
 import startQuizMainSliceReducer from "./slices/startQuizMain-slice";
 import firstPopupSliceReducer from "./slices/firstPopup-slice";
+import quizScoreSliceReducer from "./slices/quizScore-slice";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     difficulty: difficultySliceReducer,
     quizHasStarted: startQuizSliceReducer,
     quizMainHasStarted: startQuizMainSliceReducer,
+    quizScoreStarted: quizScoreSliceReducer,
   },
 });

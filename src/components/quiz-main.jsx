@@ -1,10 +1,13 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Timer from "./timer";
 import { useState } from "react";
 import AnswerBar from "./answer-bar";
 import { quizData } from "../question_data";
+import { setQuizScoreStarted } from "../redux/slices/quizScore-slice";
+import { resetQuizMainStarted } from "../redux/slices/startQuizMain-slice";
 
 function QuizMain() {
+  const dispatch = useDispatch();
   const quizMainHasStarted = useSelector((state) => state.quizMainHasStarted);
   const [answerClicked, setAnswerClicked] = useState(false);
   const [quizDataIndex, setQuizDataIndex] = useState(0);
@@ -26,11 +29,15 @@ function QuizMain() {
   const shuffled_answers = shuffleArray(answers);
 
   const handleNextBtn = () => {
-    if (quizDataIndex < quiz_data_list.length - 1)
+    if (quizDataIndex < quiz_data_list.length - 1) {
       setQuizDataIndex(quizDataIndex + 1);
-    setAnswerClicked(false);
-    setTimedOut(false);
-    setKey(key + 1);
+      setAnswerClicked(false);
+      setTimedOut(false);
+      setKey(key + 1);
+    } else {
+      dispatch(resetQuizMainStarted());
+      dispatch(setQuizScoreStarted());
+    }
   };
 
   const handleTimerComplete = () => {
