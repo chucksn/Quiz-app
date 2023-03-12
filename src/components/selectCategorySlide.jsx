@@ -23,7 +23,7 @@ const difficulty_options = [
   { value: "hard", label: "hard" },
 ];
 
-function SelectCategoryStart() {
+function SelectCategorySlide() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedDifficulty, setSelectedDifficulty] = useState(null);
   const firstPopup = useSelector((state) => state.firstPopup);
@@ -61,7 +61,7 @@ function SelectCategoryStart() {
       {firstPopup && (
         <div className="quiz-select-category w-10/12 md:w-3/5 lg:w-1/2 bg-gray-300 p-2 sm:p-4 rounded-lg flex flex-col justify-between ">
           <div className="border-b-2 border-zinc-400/20 m-4 pb-2">
-            <span className="quiz-title block font-ubuntu font-medium text-green-700 text-center text-xl md:text-2xl lg:text-3xl ">
+            <span className="quiz-title block font-ubuntu font-medium text-green-600 text-center text-xl md:text-2xl lg:text-3xl ">
               QUIZ APP
             </span>
           </div>
@@ -107,4 +107,4 @@ function SelectCategoryStart() {
   );
 }
 
-export default SelectCategoryStart;
+export default SelectCategorySlide;

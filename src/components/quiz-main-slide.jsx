@@ -6,7 +6,7 @@ import { quizData } from "../question_data";
 import { setQuizScoreStarted } from "../redux/slices/quizScore-slice";
 import { resetQuizMainStarted } from "../redux/slices/startQuizMain-slice";
 
-function QuizMain() {
+function QuizMainSlide() {
   const dispatch = useDispatch();
   const quizMainHasStarted = useSelector((state) => state.quizMainHasStarted);
   const [answerClicked, setAnswerClicked] = useState(false);
@@ -106,4 +106,4 @@ function QuizMain() {
   );
 }
 
-export default QuizMain;
+export default QuizMainSlide;

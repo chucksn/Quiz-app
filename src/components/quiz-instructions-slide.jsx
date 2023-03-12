@@ -3,7 +3,7 @@ import { resetQuizStarted } from "../redux/slices/startQuiz-slice";
 import { resetFirstPopup } from "../redux/slices/firstPopup-slice";
 import { setQuizMainStarted } from "../redux/slices/startQuizMain-slice";
 
-function QuizInstructions() {
+function QuizInstructionSlide() {
   const dispatch = useDispatch();
   const quizHasStarted = useSelector((state) => state.quizHasStarted);
 
@@ -57,4 +57,4 @@ function QuizInstructions() {
   );
 }
 
-export default QuizInstructions;
+export default QuizInstructionSlide;
