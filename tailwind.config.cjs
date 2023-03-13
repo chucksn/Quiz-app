@@ -25,6 +25,7 @@ module.exports = {
       boxShadow: {
         "s1-black": "0 0 6px 1px  rgb(190, 190, 190)", //black glow
         "s2-red": "0 0 2px 1px rgb(218, 42, 42)", //red glow
+        "s2-green": "0 0 2px 1px rgb(22, 163, 74)", //green glow
       },
 
       animation: {

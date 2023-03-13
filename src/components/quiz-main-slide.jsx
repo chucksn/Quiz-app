@@ -1,22 +1,28 @@
 import { useSelector, useDispatch } from "react-redux";
 import Timer from "./timer";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import AnswerBar from "./answer-bar";
 import { quizData } from "../question_data";
 import { setQuizScoreStarted } from "../redux/slices/quizScore-slice";
 import { resetQuizMainStarted } from "../redux/slices/startQuizMain-slice";
+import { setQuizNextDataIndex } from "../redux/slices/quizDataIndex-slice";
+import { setAnswerClicked } from "../redux/slices/answerClicked-slice";
+import { resetAnswerClicked } from "../redux/slices/answerClicked-slice";
 
 function QuizMainSlide() {
   const dispatch = useDispatch();
   const quizMainHasStarted = useSelector((state) => state.quizMainHasStarted);
-  const [answerClicked, setAnswerClicked] = useState(false);
-  const [quizDataIndex, setQuizDataIndex] = useState(0);
+  const answerClicked = useSelector((state) => state.answerClicked);
+  const quizDataIndex = useSelector((state) => state.quizDataIndex);
   const [key, setKey] = useState(0); //key for resetting timer
   const [timedOut, setTimedOut] = useState(false);
+  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
 
   const quiz_data_list = quizData.results;
   const quiz_data = quiz_data_list[quizDataIndex];
-  const answers = quiz_data.incorrect_answers.concat(quiz_data.correct_answer);
+  const correctAnswer = quiz_data.correct_answer;
+  const incorrectAnswers = quiz_data.incorrect_answers;
+  const answers = incorrectAnswers.concat(correctAnswer);
 
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -26,22 +32,25 @@ function QuizMainSlide() {
     return array;
   };
 
-  const shuffled_answers = shuffleArray(answers);
+  const shuffled_answers = useMemo(() => {
+    return shuffleArray(answers);
+  }, [quizDataIndex]);
 
   const handleNextBtn = () => {
     if (quizDataIndex < quiz_data_list.length - 1) {
-      setQuizDataIndex(quizDataIndex + 1);
-      setAnswerClicked(false);
+      dispatch(setQuizNextDataIndex());
+      dispatch(resetAnswerClicked());
       setTimedOut(false);
       setKey(key + 1);
     } else {
+      setTimedOut(false);
       dispatch(resetQuizMainStarted());
       dispatch(setQuizScoreStarted());
     }
   };
 
   const handleTimerComplete = () => {
-    setAnswerClicked(true);
+    dispatch(setAnswerClicked());
     setTimedOut(true);
   };
 
@@ -78,10 +87,12 @@ function QuizMainSlide() {
             {shuffled_answers.map((answer, index) => (
               <AnswerBar
                 key={index}
-                answerClicked={answerClicked}
-                setAnswerClicked={setAnswerClicked}
                 answer={answer}
                 timedOut={timedOut}
+                correctAnswer={correctAnswer}
+                index={index}
+                selectedAnswerIndex={selectedAnswerIndex}
+                setSelectedAnswerIndex={setSelectedAnswerIndex}
               />
             ))}
           </div>

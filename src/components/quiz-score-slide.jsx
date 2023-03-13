@@ -1,8 +1,27 @@
 import { useSelector, useDispatch } from "react-redux";
+import { resetQuizDataIndex } from "../redux/slices/quizDataIndex-slice";
+import { resetQuizScoreStarted } from "../redux/slices/quizScore-slice";
+import { setQuizMainStarted } from "../redux/slices/startQuizMain-slice";
+import { resetAnswerClicked } from "../redux/slices/answerClicked-slice";
+import { resetFirstPopup } from "../redux/slices/firstPopup-slice";
 
-function QuizScore() {
+function QuizScoreSlide() {
   const dispatch = useDispatch();
   const quizScoreStarted = useSelector((state) => state.quizScoreStarted);
+
+  const handlePlayAgain = () => {
+    dispatch(resetQuizDataIndex());
+    dispatch(resetAnswerClicked());
+    dispatch(resetQuizScoreStarted());
+    dispatch(setQuizMainStarted());
+  };
+
+  const handleEndQuiz = () => {
+    dispatch(resetQuizDataIndex());
+    dispatch(resetAnswerClicked());
+    dispatch(resetQuizScoreStarted());
+    dispatch(resetFirstPopup());
+  };
   return (
     <>
       {quizScoreStarted && (
@@ -16,11 +35,17 @@ function QuizScore() {
             You scored 4 out of 20
           </span>
           <div className="btn-container mt-2 flex justify-center py-6">
-            <button className="play-again-btn p-3  bg-sky-700 text-white rounded-lg lg:hover:bg-sky-600 m-2 font-medium">
+            <button
+              className="play-again-btn p-3  bg-sky-700 text-white rounded-lg lg:hover:bg-sky-600 m-2 font-medium"
+              onClick={handlePlayAgain}
+            >
               Play Again
             </button>
-            <button className="quit-btn p-3  bg-sky-700 text-white rounded-lg lg:hover:bg-sky-600 m-2 font-medium">
-              Quit Quiz
+            <button
+              className="quit-btn p-3  bg-sky-700 text-white rounded-lg lg:hover:bg-sky-600 m-2 font-medium"
+              onClick={handleEndQuiz}
+            >
+              End Quiz
             </button>
           </div>
         </div>
@@ -29,4 +54,4 @@ function QuizScore() {
   );
 }
 
-export default QuizScore;
+export default QuizScoreSlide;
