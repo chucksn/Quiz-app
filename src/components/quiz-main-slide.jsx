@@ -60,8 +60,12 @@ function QuizMainSlide() {
       {quizMainHasStarted && (
         <div className="quiz-select-category w-10/12 md:w-3/5 lg:w-1/2 bg-gray-300 p-2 sm:p-4 rounded-lg flex flex-col justify-between ">
           <div className="header border-b-2 border-zinc-400/20 my-4 mx-2 pb-2 flex justify-between items-center">
-            <span className="block font-robotoMono md:text-lg lg:text-xl text-green-600 font-semibold">
-              Quiz In Progress...
+            <span className="block font-robotoMono md:text-lg lg:text-xl text-yellow-600 font-semibold">
+              {answerClicked && quizDataIndex === quiz_data_list.length - 1 ? (
+                <span className="text-lime-600">Quiz Completed</span>
+              ) : (
+                "Quiz In Progress..."
+              )}
             </span>
             {timedOut && (
               <span className="block text-red-500 font-medium sm:p-1 md:text-lg text-sm sm:text-base shadow-s2-red rounded-md text-center animate-pulse">

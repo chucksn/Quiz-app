@@ -36,8 +36,8 @@ function QuizScoreSlide() {
             You've completed the Quiz!
           </span>
           <span className="block text-zinc-900/70 text-lg md:text-xl font-medium">
-            You scored <span className="text-green-800">{score}</span> out of{" "}
-            <span className="text-green-800">10</span>
+            You scored <span className="text-red-500">{score}</span> out of{" "}
+            <span className="text-red-500">10</span>
           </span>
           <div className="btn-container mt-2 flex justify-center py-6">
             <button

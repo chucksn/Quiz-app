@@ -31,6 +31,7 @@ function QuizInstructionSlide() {
                 You have only <span className="text-red-500">15 seconds</span>{" "}
                 to answer each question.
               </li>
+              <li>Click on the answer to select an answer </li>
               <li>Once an answer is selected, it can't be undone. </li>
               <li>An option cannot be selected once the timer goes off.</li>
               <li>You can't exit from the Quiz while you're still playing.</li>
