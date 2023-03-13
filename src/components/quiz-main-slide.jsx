@@ -47,6 +47,7 @@ function QuizMainSlide() {
       dispatch(resetQuizMainStarted());
       dispatch(setQuizScoreStarted());
     }
+    setSelectedAnswerIndex(null);
   };
 
   const handleTimerComplete = () => {
@@ -64,7 +65,7 @@ function QuizMainSlide() {
             </span>
             {timedOut && (
               <span className="block text-red-500 font-medium sm:p-1 md:text-lg text-sm sm:text-base shadow-s2-red rounded-md text-center animate-pulse">
-                TIME OUT
+                TIMED OUT
               </span>
             )}
             <div className="timer-ctn flex justify-center items-center text-right">
@@ -107,7 +108,7 @@ function QuizMainSlide() {
               >
                 {quizDataIndex < quiz_data_list.length - 1
                   ? "NEXT QUESTION"
-                  : "END QUIZ"}
+                  : "GET SCORE"}
               </button>
             )}
           </div>

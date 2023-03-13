@@ -4,12 +4,15 @@ import { resetQuizScoreStarted } from "../redux/slices/quizScore-slice";
 import { setQuizMainStarted } from "../redux/slices/startQuizMain-slice";
 import { resetAnswerClicked } from "../redux/slices/answerClicked-slice";
 import { resetFirstPopup } from "../redux/slices/firstPopup-slice";
+import { resetScore } from "../redux/slices/score-slice";
 
 function QuizScoreSlide() {
   const dispatch = useDispatch();
   const quizScoreStarted = useSelector((state) => state.quizScoreStarted);
+  const score = useSelector((state) => state.score);
 
   const handlePlayAgain = () => {
+    dispatch(resetScore());
     dispatch(resetQuizDataIndex());
     dispatch(resetAnswerClicked());
     dispatch(resetQuizScoreStarted());
@@ -17,6 +20,7 @@ function QuizScoreSlide() {
   };
 
   const handleEndQuiz = () => {
+    dispatch(resetScore());
     dispatch(resetQuizDataIndex());
     dispatch(resetAnswerClicked());
     dispatch(resetQuizScoreStarted());
@@ -32,7 +36,8 @@ function QuizScoreSlide() {
             You've completed the Quiz!
           </span>
           <span className="block text-zinc-900/70 text-lg md:text-xl font-medium">
-            You scored 4 out of 20
+            You scored <span className="text-green-800">{score}</span> out of{" "}
+            <span className="text-green-800">10</span>
           </span>
           <div className="btn-container mt-2 flex justify-center py-6">
             <button

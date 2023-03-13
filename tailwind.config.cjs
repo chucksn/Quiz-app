@@ -17,15 +17,17 @@ module.exports = {
       },
 
       textShadow: {
-        "text-shadow-1": "0 0 2px  rgb(234, 179, 8)", //yellow glow
-        "text-shadow-2": "0 0 3px  rgb(255, 255, 255)", //white glow
-        "text-shadow-3": "0 0 3px  rgb(0, 0, 0)", //black glow
+        "yellow-2": "0 0 2px  rgb(234, 179, 8)", //yellow glow
+        "white-3": "0 0 3px  rgb(255, 255, 255)", //white glow
+        "black-3": "0 0 3px  rgb(0, 0, 0)", //black glow
+        "dark-amber-2": "0 0 2px  rgb(146, 64, 14)",
       },
 
       boxShadow: {
         "s1-black": "0 0 6px 1px  rgb(190, 190, 190)", //black glow
         "s2-red": "0 0 2px 1px rgb(218, 42, 42)", //red glow
         "s2-green": "0 0 2px 1px rgb(22, 163, 74)", //green glow
+        "s2-dark-amber": "0 0 5px  rgb(146, 64, 14)",
       },
 
       animation: {

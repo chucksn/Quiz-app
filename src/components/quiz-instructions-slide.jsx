@@ -26,9 +26,9 @@ function QuizInstructionSlide() {
             </span>
           </div>
           <div className="rule-list border-b-2 border-zinc-400/20 px-8 flex flex-col items-center pb-2">
-            <ol className=" list-decimal text-zinc-900/70 md:text-lg font-robotoMono font-medium">
+            <ol className=" list-decimal text-zinc-900/70 md:text-lg lg:text-xl px-4 md:px-8 font-robotoMono font-medium">
               <li>
-                You have only <span className="text-sky-500">15 seconds</span>{" "}
+                You have only <span className="text-red-500">15 seconds</span>{" "}
                 to answer each question.
               </li>
               <li>Once an answer is selected, it can't be undone. </li>

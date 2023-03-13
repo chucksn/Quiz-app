@@ -7,6 +7,7 @@ import firstPopupSliceReducer from "./slices/firstPopup-slice";
 import quizScoreSliceReducer from "./slices/quizScore-slice";
 import quizDataIndexSliceReducer from "./slices/quizDataIndex-slice";
 import answerClickedSliceReducer from "./slices/answerClicked-slice";
+import scoreSliceReducer from "./slices/score-slice";
 
 export const store = configureStore({
   reducer: {
@@ -18,5 +19,6 @@ export const store = configureStore({
     quizScoreStarted: quizScoreSliceReducer,
     quizDataIndex: quizDataIndexSliceReducer,
     answerClicked: answerClickedSliceReducer,
+    score: scoreSliceReducer,
   },
 });
