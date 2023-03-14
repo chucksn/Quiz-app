@@ -24,6 +24,7 @@ const inOut_animation_variant = {
   },
   exit: {
     y: "100vh",
+    opacity: 0,
     transition: {
       duration: 1,
       type: "spring",
@@ -58,7 +59,7 @@ function QuizScoreSlide() {
       <AnimatePresence>
         {quizScoreStarted && (
           <motion.div
-            className="quiz-score w-10/12 md:w-3/5 lg:w-1/2 bg-gray-300 p-2 sm:p-4 rounded-lg flex flex-col justify-between items-center absolute"
+            className="quiz-score w-11/12 md:w-3/5 lg:w-1/2 bg-gray-300 p-2 sm:p-4 rounded-lg flex flex-col justify-between items-center absolute"
             variants={inOut_animation_variant}
             initial="hidden"
             animate="visible"

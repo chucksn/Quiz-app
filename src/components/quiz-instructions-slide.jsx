@@ -21,6 +21,7 @@ const inOut_animation_variant = {
   },
   exit: {
     x: "-100vw",
+    opacity: 0,
     transition: {
       duration: 1,
       type: "spring",
@@ -48,7 +49,7 @@ function QuizInstructionSlide() {
       <AnimatePresence>
         {quizHasStarted && (
           <motion.div
-            className="quiz-rules w-10/12 md:w-3/5 lg:w-1/2 bg-gray-300 p-2 sm:p-4 rounded-lg flex flex-col justify-between absolute"
+            className="quiz-rules w-11/12 md:w-3/5 lg:w-1/2 bg-gray-300 p-2 sm:p-4 rounded-lg flex flex-col justify-between absolute"
             variants={inOut_animation_variant}
             initial="hidden"
             animate="visible"

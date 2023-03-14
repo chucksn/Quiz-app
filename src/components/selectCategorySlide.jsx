@@ -24,7 +24,8 @@ const inOut_animation_variant = {
     },
   },
   exit: {
-    x: "-100vw",
+    y: "100vh",
+    opacity: 0,
     transition: {
       duration: 1,
       type: "spring",
@@ -89,7 +90,7 @@ function SelectCategorySlide() {
       <AnimatePresence>
         {firstPopup && (
           <motion.div
-            className="quiz-select-category w-10/12 md:w-3/5 lg:w-1/2 bg-gray-300 p-2 sm:p-4 rounded-lg flex flex-col justify-between absolute"
+            className="quiz-select-category w-11/12 md:w-3/5 lg:w-1/2 bg-gray-300 p-2 sm:p-4 rounded-lg flex flex-col justify-between absolute"
             key="select-category"
             variants={inOut_animation_variant}
             initial="hidden"
@@ -97,7 +98,7 @@ function SelectCategorySlide() {
             exit="exit"
           >
             <div className="border-b-2 border-zinc-400/20 m-4 pb-4 text-center">
-              <span className="quiz-title inline-block shadow-s2-dark-amber bg-yellow-500/30 p-2 rounded-lg font-ubuntu font-medium text-amber-800/90 text-xl md:text-2xl lg:text-3xl ">
+              <span className="quiz-title inline-block shadow-s2-dark-amber bg-yellow-500/30 p-2 rounded-lg font-ubuntu font-medium text-amber-800/90 text-2xl md:text-3xl ">
                 Trivia Titan
               </span>
             </div>
