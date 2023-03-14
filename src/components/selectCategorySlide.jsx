@@ -5,6 +5,34 @@ import { setFirstPopup_hidden } from "../redux/slices/firstPopup-slice";
 import { setCategory } from "../redux/slices/category-slice";
 import { setQuizStarted } from "../redux/slices/startQuiz-slice";
 import { setDifficulty } from "../redux/slices/difficulty-slice";
+import { motion, AnimatePresence } from "framer-motion";
+
+const inOut_animation_variant = {
+  hidden: {
+    y: "-100vh",
+    opacity: 0,
+  },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      delay: 0.3,
+      duration: 1,
+      type: "spring",
+      stiffness: 70,
+      ease: "easeInOut",
+    },
+  },
+  exit: {
+    x: "-100vw",
+    transition: {
+      duration: 1,
+      type: "spring",
+      stiffness: 70,
+      ease: "easeInOut",
+    },
+  },
+};
 
 const category_options = [
   { value: 9, label: "General Knowledge" },
@@ -58,51 +86,60 @@ function SelectCategorySlide() {
 
   return (
     <>
-      {firstPopup && (
-        <div className="quiz-select-category w-10/12 md:w-3/5 lg:w-1/2 bg-gray-300 p-2 sm:p-4 rounded-lg flex flex-col justify-between ">
-          <div className="border-b-2 border-zinc-400/20 m-4 pb-4 text-center">
-            <span className="quiz-title inline-block shadow-s2-dark-amber bg-yellow-500/30 p-2 rounded-lg font-ubuntu font-medium text-amber-800/90 text-xl md:text-2xl lg:text-3xl ">
-              Trivia Titan
-            </span>
-          </div>
-          <div className="flex flex-col justify-between items-center">
-            <div
-              className={` select-category-container w-4/5 lg:w-1/2 m-8 rounded-sm ${
-                noCategorySelected ? "" : "shadow-s2-red"
-              }`}
-            >
-              <Select
-                className="category-select  md:text-xl "
-                defaultValue={selectedCategory}
-                onChange={setSelectedCategory}
-                options={category_options}
-                placeholder="Select Category"
-                onMenuOpen={handleMenuOpen}
-              />
+      <AnimatePresence>
+        {firstPopup && (
+          <motion.div
+            className="quiz-select-category w-10/12 md:w-3/5 lg:w-1/2 bg-gray-300 p-2 sm:p-4 rounded-lg flex flex-col justify-between absolute"
+            key="select-category"
+            variants={inOut_animation_variant}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <div className="border-b-2 border-zinc-400/20 m-4 pb-4 text-center">
+              <span className="quiz-title inline-block shadow-s2-dark-amber bg-yellow-500/30 p-2 rounded-lg font-ubuntu font-medium text-amber-800/90 text-xl md:text-2xl lg:text-3xl ">
+                Trivia Titan
+              </span>
             </div>
-            <div
-              className={` select-difficulty-container w-4/5 lg:w-1/2 m-8 rounded-sm ${
-                noDifficultySelected ? "" : "shadow-s2-red"
-              }`}
-            >
-              <Select
-                className="difficulty-select md:text-xl"
-                defaultValue={selectedDifficulty}
-                onChange={setSelectedDifficulty}
-                options={difficulty_options}
-                placeholder="Select Difficulty"
-                onMenuOpen={handleMenuOpen}
-              />
+            <div className="flex flex-col justify-between items-center">
+              <div
+                className={` select-category-container w-4/5 lg:w-1/2 m-8 rounded-sm ${
+                  noCategorySelected ? "" : "shadow-s2-red"
+                }`}
+              >
+                <Select
+                  className="category-select  md:text-xl "
+                  defaultValue={selectedCategory}
+                  onChange={setSelectedCategory}
+                  options={category_options}
+                  placeholder="Select Category"
+                  onMenuOpen={handleMenuOpen}
+                />
+              </div>
+              <div
+                className={` select-difficulty-container w-4/5 lg:w-1/2 m-8 rounded-sm ${
+                  noDifficultySelected ? "" : "shadow-s2-red"
+                }`}
+              >
+                <Select
+                  className="difficulty-select md:text-xl"
+                  defaultValue={selectedDifficulty}
+                  onChange={setSelectedDifficulty}
+                  options={difficulty_options}
+                  placeholder="Select Difficulty"
+                  onMenuOpen={handleMenuOpen}
+                />
+              </div>
+              <button
+                className="p-3 md:text-base bg-sky-700 text-white rounded-lg lg:hover:bg-sky-600 m-2 font-medium"
+                onClick={handleStartClick}
+              >
+                START QUIZ
+              </button>
             </div>
-            <button
-              className="p-3 md:text-base bg-sky-700 text-white rounded-lg lg:hover:bg-sky-600 m-2 font-medium"
-              onClick={handleStartClick}
-            >
-              START QUIZ
-            </button>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
