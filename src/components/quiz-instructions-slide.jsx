@@ -34,6 +34,7 @@ const inOut_animation_variant = {
 function QuizInstructionSlide() {
   const dispatch = useDispatch();
   const quizHasStarted = useSelector((state) => state.quizHasStarted);
+  const difficulty = useSelector((state) => state.difficulty);
 
   const handleExit = () => {
     dispatch(resetQuizStarted());
@@ -43,6 +44,15 @@ function QuizInstructionSlide() {
   const handleContinue = () => {
     dispatch(resetQuizStarted());
     dispatch(setQuizMainStarted());
+  };
+
+  const setTimerDuration = () => {
+    if (difficulty === "easy") {
+      return 30;
+    } else if (difficulty === "medium") {
+      return 25;
+    }
+    return 15;
   };
   return (
     <>
@@ -63,7 +73,10 @@ function QuizInstructionSlide() {
             <div className="rule-list border-b-2 border-zinc-400/20 px-8 flex flex-col items-center pb-2">
               <ol className=" list-decimal text-zinc-900/70 md:text-lg lg:text-xl px-4 md:px-8 font-robotoMono font-medium">
                 <li>
-                  You have only <span className="text-red-500">20 seconds</span>{" "}
+                  You have only{" "}
+                  <span className="text-red-500">
+                    {setTimerDuration()} seconds
+                  </span>{" "}
                   to answer each question.
                 </li>
                 <li>Click on the answer to select an answer </li>
@@ -77,13 +90,13 @@ function QuizInstructionSlide() {
             </div>
             <div className="btn-container mt-2 flex justify-center">
               <button
-                className="exit p-3  bg-sky-700 text-white rounded-lg lg:hover:bg-sky-600 m-2 font-medium"
+                className="exit p-3 md:text-lg  bg-sky-700 text-white rounded-lg lg:hover:bg-sky-600 m-2 font-medium"
                 onClick={handleExit}
               >
                 Exit Quiz
               </button>
               <button
-                className="continue p-3  bg-sky-700 text-white rounded-lg lg:hover:bg-sky-600 m-2 font-medium"
+                className="continue p-3 md:text-lg  bg-sky-700 text-white rounded-lg lg:hover:bg-sky-600 m-2 font-medium"
                 onClick={handleContinue}
               >
                 Continue

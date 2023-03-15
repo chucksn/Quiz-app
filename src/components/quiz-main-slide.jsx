@@ -5,6 +5,7 @@ import AnswerBar from "./answer-bar";
 import { setQuizScoreStarted } from "../redux/slices/quizScore-slice";
 import { resetQuizMainStarted } from "../redux/slices/startQuizMain-slice";
 import { setQuizNextDataIndex } from "../redux/slices/quizDataIndex-slice";
+import { resetFirstPopup } from "../redux/slices/firstPopup-slice";
 import { setAnswerClicked } from "../redux/slices/answerClicked-slice";
 import { resetAnswerClicked } from "../redux/slices/answerClicked-slice";
 import { motion, AnimatePresence } from "framer-motion";
@@ -34,6 +35,16 @@ const inOut_animation_variant = {
       ease: "easeInOut",
     },
   },
+  exit_2: {
+    y: "100vh",
+    opacity: 0,
+    transition: {
+      duration: 1,
+      type: "spring",
+      stiffness: 70,
+      ease: "easeInOut",
+    },
+  },
 };
 
 function QuizMainSlide() {
@@ -45,6 +56,7 @@ function QuizMainSlide() {
   const [timedOut, setTimedOut] = useState(false);
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
   const quizData = useSelector((state) => state.quizData);
+  const difficulty = useSelector((state) => state.difficulty);
 
   const quiz_data_list = quizData && quizData.results;
   const quiz_data = quiz_data_list && quiz_data_list[quizDataIndex];
@@ -71,6 +83,10 @@ function QuizMainSlide() {
     if (memorized_answers.length > 0) setShuffledAnswers(shuffled);
   }, [quizDataIndex, quizMainHasStarted]);
 
+  // console.log(answers);
+  // console.log(memorized_answers);
+  // console.log(shuffled_answers);
+
   const handleNextBtn = () => {
     if (quizDataIndex < quiz_data_list.length - 1) {
       dispatch(setQuizNextDataIndex());
@@ -90,10 +106,56 @@ function QuizMainSlide() {
     setTimedOut(true);
   };
 
+  const setTimerDuration = () => {
+    if (difficulty === "easy") {
+      return 30;
+    } else if (difficulty === "medium") {
+      return 25;
+    }
+    return 15;
+  };
+
+  const handleEndQuiz = () => {
+    dispatch(resetQuizMainStarted());
+    dispatch(resetFirstPopup());
+    dispatch(resetAnswerClicked());
+  };
+
   return (
     <>
       <AnimatePresence>
-        {quizMainHasStarted && (
+        {quizMainHasStarted && quiz_data_list.length === 0 && (
+          <motion.div
+            className="error-slide w-11/12 md:w-3/5 lg:w-1/2 bg-gray-300 p-4 sm:p-8 rounded-lg flex flex-col justify-between items-center absolute"
+            variants={inOut_animation_variant}
+            initial="hidden"
+            animate="visible"
+            exit="exit_2"
+          >
+            <span className="oops-txt block text-4xl md:text-6xl text-orange-600 font-itim text-center">
+              oops!
+            </span>
+            <span className="error-txt block text-center text-zinc-900/70 md:text-lg lg:text-xl px-4 md:px-8 font-robotoMono font-medium">
+              Unable to retrieve data for selected quiz category.
+            </span>
+            <div className="tip sm:text-lg lg:text-xl px-4 md:px-8 font-robotoMono font-semibold my-3 md:my-6">
+              <span className="tip-txt block text-center text-green-700">
+                Tips
+              </span>
+              <span className="tip-txt block text-center font-medium text-sky-800/80">
+                * Change the difficulty level for this category. If it persist,
+                select another category
+              </span>
+            </div>
+            <button
+              className="exit p-3 md:text-lg  bg-sky-700 text-white rounded-lg lg:hover:bg-sky-600 m-2 font-medium"
+              onClick={handleEndQuiz}
+            >
+              Exit Quiz
+            </button>
+          </motion.div>
+        )}
+        {quizMainHasStarted && quiz_data_list.length > 0 && (
           <motion.div
             className="quiz-select-category w-11/12 md:w-3/5 lg:w-1/2 bg-gray-300 p-2 sm:p-4 rounded-lg flex flex-col justify-between absolute"
             variants={inOut_animation_variant}
@@ -121,7 +183,7 @@ function QuizMainSlide() {
                 </span>
                 <Timer
                   isPlaying={answerClicked ? false : true}
-                  duration={20}
+                  duration={setTimerDuration()}
                   key={key}
                   onComplete={handleTimerComplete}
                 />
