@@ -76,7 +76,7 @@ function QuizScoreSlide() {
                 {score}
               </span>{" "}
               out of{" "}
-              <span className="text-orange-600 text-xl md:text-2xl">10</span>
+              <span className="text-orange-600 text-xl md:text-2xl">15</span>
             </span>
             <div className="btn-container mt-2 flex justify-center py-6">
               <button

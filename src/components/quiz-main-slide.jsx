@@ -1,8 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import Timer from "./timer";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import AnswerBar from "./answer-bar";
-import { quizData } from "../question_data";
 import { setQuizScoreStarted } from "../redux/slices/quizScore-slice";
 import { resetQuizMainStarted } from "../redux/slices/startQuizMain-slice";
 import { setQuizNextDataIndex } from "../redux/slices/quizDataIndex-slice";
@@ -45,12 +44,13 @@ function QuizMainSlide() {
   const [key, setKey] = useState(0); //key for resetting timer
   const [timedOut, setTimedOut] = useState(false);
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
+  const quizData = useSelector((state) => state.quizData);
 
-  const quiz_data_list = quizData.results;
-  const quiz_data = quiz_data_list[quizDataIndex];
-  const correctAnswer = quiz_data.correct_answer;
-  const incorrectAnswers = quiz_data.incorrect_answers;
-  const answers = incorrectAnswers.concat(correctAnswer);
+  const quiz_data_list = quizData && quizData.results;
+  const quiz_data = quiz_data_list && quiz_data_list[quizDataIndex];
+  const correctAnswer = quiz_data && quiz_data.correct_answer;
+  const incorrectAnswers = quiz_data && quiz_data.incorrect_answers;
+  const answers = quiz_data ? incorrectAnswers.concat(correctAnswer) : [];
 
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -60,9 +60,16 @@ function QuizMainSlide() {
     return array;
   };
 
-  const shuffled_answers = useMemo(() => {
-    return shuffleArray(answers);
-  }, [quizDataIndex]);
+  const memorized_answers = useMemo(() => {
+    return answers;
+  }, [answers]);
+
+  const [shuffled_answers, setShuffledAnswers] = useState([]);
+
+  useEffect(() => {
+    const shuffled = shuffleArray(memorized_answers);
+    if (memorized_answers.length > 0) setShuffledAnswers(shuffled);
+  }, [quizDataIndex, quizMainHasStarted]);
 
   const handleNextBtn = () => {
     if (quizDataIndex < quiz_data_list.length - 1) {
@@ -114,7 +121,7 @@ function QuizMainSlide() {
                 </span>
                 <Timer
                   isPlaying={answerClicked ? false : true}
-                  duration={15}
+                  duration={20}
                   key={key}
                   onComplete={handleTimerComplete}
                 />

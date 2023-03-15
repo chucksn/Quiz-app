@@ -5,6 +5,7 @@ import { setFirstPopup_hidden } from "../redux/slices/firstPopup-slice";
 import { setCategory } from "../redux/slices/category-slice";
 import { setQuizStarted } from "../redux/slices/startQuiz-slice";
 import { setDifficulty } from "../redux/slices/difficulty-slice";
+import { setQuizData } from "../redux/slices/quizData-slice";
 import { motion, AnimatePresence } from "framer-motion";
 
 const inOut_animation_variant = {
@@ -71,6 +72,14 @@ function SelectCategorySlide() {
     selectedDifficulty && dispatch(setDifficulty(selectedDifficulty.value));
   }, [selectedDifficulty]);
 
+  const getQuizData = async () => {
+    let response = await fetch(
+      `https://opentdb.com/api.php?amount=15&category=${category}&difficulty=${difficulty}&type=multiple`
+    );
+    let data = await response.json();
+    category && difficulty && dispatch(setQuizData(data));
+  };
+
   const handleStartClick = () => {
     category &&
       difficulty &&
@@ -78,6 +87,8 @@ function SelectCategorySlide() {
       dispatch(setFirstPopup_hidden());
     if (!category) setNoCategorySelected(false);
     if (!difficulty) setNoDifficultySelected(false);
+
+    getQuizData();
   };
 
   const handleMenuOpen = () => {

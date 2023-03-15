@@ -8,6 +8,7 @@ import quizScoreSliceReducer from "./slices/quizScore-slice";
 import quizDataIndexSliceReducer from "./slices/quizDataIndex-slice";
 import answerClickedSliceReducer from "./slices/answerClicked-slice";
 import scoreSliceReducer from "./slices/score-slice";
+import quizDataSliceReducer from "./slices/quizData-slice";
 
 export const store = configureStore({
   reducer: {
@@ -20,5 +21,6 @@ export const store = configureStore({
     quizDataIndex: quizDataIndexSliceReducer,
     answerClicked: answerClickedSliceReducer,
     score: scoreSliceReducer,
+    quizData: quizDataSliceReducer,
   },
 });
